@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Happy Birthday!</title>
+  </head>
+  <style>
+    body,
+    #matrix-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+      color: #00ff00;
+      font-family: "Courier New", monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    #matrix-text {
+      white-space: nowrap;
+      border-right: 3px solid #00ff00;
+      padding-right: 5px;
+      font-size: 24px;
+      animation: typing 3s steps(40) 1s 1 normal forwards,
+        blink-caret 0.75s step-end infinite;
+    }
+
+    /* Typing effect */
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    /* Blinking cursor animation */
+    @keyframes blink-caret {
+      50% {
+        border-color: transparent;
+      }
+    }
+
+    /* Apply typing animation */
+    .typing {
+      animation: typing 6s steps(50) 1s 1 normal forwards,
+        blink-caret 0.75s step-end infinite;
+    }
+
+    html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    #opening-page {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url("file:///Users/nouradil/Desktop/jpeg/anigif.gif")
+        no-repeat center center/cover;
+    }
+
+    #motorcycle {
+      position: absolute;
+      width: 150px;
+      bottom: 50px;
+      left: 20px;
+      cursor: pointer;
+      transition: transform 2s ease-in-out;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #intro-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 80%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    #next-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #next-btn:hover {
+      background-color: #45a049;
+    }
+
+    #continue-text {
+      position: absolute;
+      bottom: 20px;
+      font-size: 18px;
+      color: #00ff00;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div id="opening-page">
+      <!-- Background GIF -->
+      <div class="background"></div>
+
+      <!-- Motorcycle -->
+      <img
+        id="motorcycle"
+        src="file:///Users/nouradil/Desktop/jpeg/pngegg-cutout.png"
+        alt="Motorcycle"
+      />
+
+      <!-- Intro Text -->
+      <div id="intro-text" class="hidden">
+        <p>
+          Here's a little website with some games I made for you! Pay attention,
+          there's a surprise at the end.
+        </p>
+        <!-- Button with Link -->
+        <button id="next-btn">Next</button>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("motorcycle").addEventListener("click", () => {
+        document.getElementById("motorcycle").style.transform =
+          "translateX(100vw)";
+        setTimeout(() => {
+          document.getElementById("intro-text").classList.remove("hidden");
+          document.getElementById("motorcycle").style.display = "none";
+        }, 2000);
+      });
+
+      document.getElementById("next-btn").addEventListener("click", () => {
+        // Hide the intro text
+        document.getElementById("intro-text").classList.add("hidden");
+
+        // Create the Matrix screen element
+        const matrixScreen = document.createElement("div");
+        matrixScreen.id = "matrix-screen";
+
+        // Add the text with typing animation
+        const matrixText = document.createElement("p");
+        matrixText.id = "matrix-text";
+        matrixText.textContent =
+          "So I wanted to show you how I remember we first met...";
+
+        const continueText = document.createElement("div");
+        continueText.id = "continue-text";
+        continueText.textContent = "Click to continue";
+        document.body.appendChild(matrixScreen);
+        matrixScreen.appendChild(matrixText);
+        matrixScreen.appendChild(continueText);
+
+        // Add the typing effect to the matrix text
+        matrixText.classList.add("typing");
+
+        // Add the click event to continue
+        continueText.addEventListener("click", () => {
+          // Remove the first text and continueText
+          matrixText.style.display = "none";
+          continueText.style.display = "none";
+
+          // Show the next message
+          const nextMatrixText = document.createElement("p");
+          nextMatrixText.id = "matrix-text";
+          nextMatrixText.textContent =
+            "loyil and tortured drugstore enter the same server on chitchat.gg on june 7th 2024";
+          matrixScreen.appendChild(nextMatrixText);
+        });
+      });
+    </script>
+  </body>
+</html>
